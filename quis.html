@@ -1,0 +1,166 @@
+<!-- Quiz container -->
+<div class="quiz-container">
+    <!-- Quiz title -->
+    <h2>Quiz Title</h2>
+    
+    <!-- Question container -->
+    <div class="question-container">
+        <!-- Question 1 -->
+        <div class="question" id="q1">
+            <h3>Question 1</h3>
+            <p>What is the capital of France?</p>
+            <ul class="options">
+                <li><input type="radio" name="q1" value="A" id="q1a"><label for="q1a">A) Paris</label></li>
+                <li><input type="radio" name="q1" value="B" id="q1b"><label for="q1b">B) Berlin</label></li>
+                <li><input type="radio" name="q1" value="C" id="q1c"><label for="q1c">C) London</label></li>
+            </ul>
+        </div>
+        
+        <!-- Question 2 (hidden initially) -->
+        <div class="question" id="q2" style="display: none;">
+            <h3>Question 2</h3>
+            <p>What is the largest planet in our solar system?</p>
+            <ul class="options">
+                <li><input type="radio" name="q2" value="A" id="q2a"><label for="q2a">A) Earth</label></li>
+                <li><input type="radio" name="q2" value="B" id="q2b"><label for="q2b">B) Saturn</label></li>
+                <li><input type="radio" name="q2" value="C" id="q2c"><label for="q2c">C) Jupiter</label></li>
+            </ul>
+        </div>
+        
+        <!-- Navigation buttons -->
+        <button class="next-btn" id="next-btn">Next Question</button>
+        <button class="submit-btn" id="submit-btn">Submit Quiz</button>
+    </div>
+</div>
+
+<!-- Popup container -->
+<div id="popup" class="popup" style="display:none;">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <h2>Your Score</h2>
+        <p id="score-text"></p>
+    </div>
+</div>
+
+<style>
+    /* Quiz container styles */
+    .quiz-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Question container styles */
+    .question-container {
+        position: relative; /* Tambahkan ini untuk mengatur posisi relative */
+        padding: 20px;
+    }
+
+    .question {
+        margin-bottom: 20px;
+    }
+
+    .question h3 {
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    .options {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .options li {
+        margin-bottom: 10px;
+    }
+
+    .options input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    /* Navigation button styles */
+    .next-btn, .submit-btn {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .next-btn:hover, .submit-btn:hover {
+        background-color: #3e8e41;
+    }
+
+    /* Posisi tombol submit */
+    .submit-btn {
+        position: absolute; /* Memungkinkan pemindahan tombol relatif terhadap elemen induk */
+        right: 10px; /* Jarak dari tepi kanan */
+        bottom: 10px; /* Jarak dari tepi bawah */
+    }
+    
+    /* Popup styles */
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .popup-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    // Event listener for submit button
+    document.getElementById("submit-btn").addEventListener("click", function() {
+        let score = 0;
+        
+        // Check answers
+        if (document.getElementById("q1a").checked) {
+            score += 1; // correct answer
+        }
+        if (document.getElementById("q2c").checked) {
+            score += 1; // correct answer
+        }
+        
+        // Display score in popup
+        document.getElementById("score-text").innerText = "Your score is: " + score + " out of 2";
+        document.getElementById("popup").style.display = "flex";
+    });
+
+    // Close the popup when clicking the close button
+    document.querySelector(".close-btn").addEventListener("click", function() {
+        document.getElementById("popup").style.display = "none";
+    });
+
+    // Close the popup when clicking outside the content
+    document.getElementById("popup").addEventListener("click", function(event) {
+        if (event.target === this) {
+            this.style.display = "none";
+        }
+    });
+</script>
